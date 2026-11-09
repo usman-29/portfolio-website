@@ -1,26 +1,351 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
+/* ------------------------------------------------------------------
+   Design tokens: dark only. One palette for the whole site:
+   graphite ground, warm off-white ink, one signal-orange accent.
+   The Tubes Cursor and Shiny Button both read from these values.
+   ------------------------------------------------------------------ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+
+  /* Grounds */
+  --bg: #0a0a0b;
+  --bg-raised: #111113;
+  --surface: #161618;
+  --line: #25252a;
+  --line-strong: #36363c;
+
+  /* Ink */
+  --ink: #f3f0ea;
+  --ink-2: #bdb9b2; /* body copy, ~10:1 on --bg */
+  --ink-3: #8d8a84; /* labels, ~5.6:1 on --bg */
+
+  /* Accent */
+  --accent: #ff7a45;
+  --accent-soft: #ffb48c;
+  --accent-ink: #1c0e07;
+  --accent-wash: rgb(255 122 69 / 0.08);
+
+  /* Layout */
+  --header-h: 4.25rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --maxw: 75rem;
+  --radius: 0.875rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* shadcn variables, mapped onto the tokens above */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-ink);
+  --secondary: var(--surface);
+  --secondary-foreground: var(--ink);
+  --muted: var(--bg-raised);
+  --muted-foreground: var(--ink-3);
+  --accent-ui: var(--surface);
+  --destructive: #ff5c5c;
+  --border: var(--line);
+  --input: var(--line-strong);
+  --ring: var(--accent);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent-ui);
+  --color-accent-foreground: var(--ink);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-bg: var(--bg);
+  --color-bg-raised: var(--bg-raised);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-signal: var(--accent);
+  --color-signal-soft: var(--accent-soft);
+
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-display);
+  --font-mono: var(--font-code);
+
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    background: var(--bg);
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink-2);
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--ink);
+    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ------------------------------------------------------------------
+   Shared components (one system used by every section)
+   ------------------------------------------------------------------ */
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: calc(var(--maxw) + var(--gutter) * 2);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .section {
+    position: relative;
+    padding-block: clamp(5rem, 11vw, 9rem);
+    border-top: 1px solid var(--line);
+  }
+
+  /* Mono label: "01 / Selected work" */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-code), ui-monospace, monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .eyebrow-index {
+    color: var(--accent);
+  }
+
+  .h-display {
+    font-size: clamp(2.9rem, 8.4vw, 7.25rem);
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+  }
+
+  .h-section {
+    font-size: clamp(2.1rem, 4.6vw, 3.75rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+
+  .h-card {
+    font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  .lead {
+    font-size: clamp(1.125rem, 1.6vw, 1.3rem);
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 60ch;
+  }
+
+  .mono {
+    font-family: var(--font-code), ui-monospace, monospace;
+  }
+
+  /* Tech tag */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    padding: 0.2rem 0.65rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    font-family: var(--font-code), ui-monospace, monospace;
+    font-size: 0.75rem;
+    line-height: 1.2;
+    color: var(--ink-2);
+    background: var(--bg-raised);
+    white-space: nowrap;
+  }
+
+  /* The one card style */
+  .card {
+    position: relative;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    transition:
+      border-color 300ms var(--ease-out),
+      translate 300ms var(--ease-out),
+      background-color 300ms var(--ease-out);
+  }
+
+  .card-hover:hover {
+    border-color: var(--line-strong);
+    translate: 0 -2px;
+  }
+
+  /* The one inline-link style: underline draws in on hover */
+  .link {
+    color: var(--ink);
+    text-decoration: none;
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    transition:
+      background-size 350ms var(--ease-out),
+      color 200ms ease;
+  }
+
+  .link:hover,
+  .link:focus-visible {
+    background-size: 100% 1px;
+    color: var(--accent-soft);
+  }
+
+  /* Dot grid ground for diagram panels */
+  .dot-ground {
+    background-color: var(--bg);
+    background-image: radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Hero entrance: plays once on load. Nothing else animates on scroll.
+   ------------------------------------------------------------------ */
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    translate: 0 18px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-enter] > * {
+    animation: enter-up 900ms var(--ease-out) both;
+  }
+  [data-enter] > *:nth-child(2) {
+    animation-delay: 90ms;
+  }
+  [data-enter] > *:nth-child(3) {
+    animation-delay: 180ms;
+  }
+  [data-enter] > *:nth-child(4) {
+    animation-delay: 270ms;
+  }
+  [data-enter] > *:nth-child(5) {
+    animation-delay: 360ms;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Flow diagrams in the project cards: pulses travel along the wires
+   ------------------------------------------------------------------ */
+@keyframes wire-pulse {
+  to {
+    stroke-dashoffset: -120;
+  }
+}
+
+.wire-pulse {
+  stroke-dasharray: 10 110;
+  animation: wire-pulse 3.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wire-pulse {
+    animation: none;
+    stroke-dasharray: none;
+    opacity: 0.35;
+  }
+}
+
+@keyframes blink-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.live-dot {
+  animation: blink-dot 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-dot {
+    animation: none;
+  }
 }

@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Muhammad Usman Saeed: Portfolio
 
-## Getting Started
+Personal portfolio. Next.js 16 (App Router) + TypeScript + Tailwind CSS v4 + shadcn/ui, exported as a **static site** so it can be hosted free anywhere.
 
-First, run the development server:
+## Run locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # static export → out/
+npx serve out      # preview the production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Edit the content
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+All text lives in [`lib/content.ts`](lib/content.ts): hero, projects, experience, skills, education, certifications, links. Components only render it.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Add a repo or demo link to a project: set `href` on that project.
+- **Never add the phone number.** It is deliberately left off the site.
 
-## Learn More
+Chess stats (chess.com user `usman10`) are fetched at build time and refreshed live in the visitor's browser. If chess.com is unreachable, the snapshot in [`lib/chess.ts`](lib/chess.ts) is shown.
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy (free)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Vercel (recommended)
+1. Push this folder to a GitHub repo.
+2. On [vercel.com](https://vercel.com) → **Add New → Project** → import the repo.
+3. Keep the defaults (Framework: Next.js) and click **Deploy**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The production URL is picked up automatically for share previews. To use a custom domain, add it in Vercel and set `NEXT_PUBLIC_SITE_URL=https://yourdomain.com` under Project → Settings → Environment Variables.
 
-## Deploy on Vercel
+### Any other static host (Netlify, Cloudflare Pages, GitHub Pages)
+- Build command: `npm run build`
+- Output directory: `out`
+- Set `NEXT_PUBLIC_SITE_URL` to the site's URL so share previews resolve.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/                 layout (fonts, metadata), page, share image, icon, 404
+components/ui/       shiny-button (+ .css), tubes-cursor: the two provided components, adapted
+components/sections/ hero, work, experience, stack, background, contact
+components/          header, footer, flow diagram, chess card, shared heading
+lib/content.ts       all site copy
+lib/chess.ts         chess.com fetch + fallback snapshot
+docs/                project brief, owner info, design direction, component notes
+```
