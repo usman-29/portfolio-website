@@ -108,3 +108,21 @@ Project links (GitHub repo / live demo / screenshots) for each: **not provided y
 - [ ] Downloadable CV on the site? (Only a version without the phone number.)
 - [x] Design preferences: no specific design. Dark only, not common, no AI slop, professional, interactive, readable, easy to navigate. See [03-design-direction.md](03-design-direction.md).
 - [ ] Domain / where it will be hosted
+
+## Career story (from owner, 2026-11-21)
+
+Used for the "My journey so far" post in the Writing section (`lib/writing.ts`).
+
+- **University start:** Grinded LeetCode from the start of university. Took part in Meta Hacker Cup and other online coding competitions.
+- **T-shaped goal:** Know the breadth of everything, and go deep in one field.
+- **Breadth:** Web development, frontend and backend: HTML, CSS, JavaScript, TypeScript, React, Next.js, Tailwind. Then Flutter for mobile apps.
+- **Depth, AI:** Andrew Ng's ML and DL courses. O'Reilly books on ML, DL, data science and AI. Built projects with ML algorithms and DL models.
+- **System design:** Read *Designing Data-Intensive Applications*. Watched Hello Interview and "Jordan has no life" on YouTube, and built the systems they cover. Owner wrote "jack has no life"; the channel is assumed to be **Jordan has no life**, so confirm this. It taught them many technologies, to stop fearing failure, to find bugs, to know what to do in a given failure, and which component to use when.
+- **Finding internships:** Applied for all of them online through LinkedIn.
+- **Jazz (Data Analyst Intern):** In the **finance department**. Cleaned Excel data files, applied transformations and merged them, and used Python to build automated pipelines and pull insights.
+- **Chi Tech (Full Stack Developer Intern):** First real full-stack project for a real client. Learned team communication and organisation, Docker, Git, debugging, testing and writing tickets.
+- **Hull Technologies (Full Stack AI Engineer):** First full-time role. A full-stack app with AI built in. Used a **DCGAN** model to enhance image resolution. Biggest contribution: applying system design (threads, managing workers, handling request spikes) and building a complex, fault-tolerant pipeline.
+- **Devsinc:** Worked on two full-stack apps, **Supy** and **BrightBee**, plus the RFP automation AI project.
+  - **Supy (first):** DDD architecture, mostly backend. More than 10 microservices; owner was responsible for 3. The hardest part was understanding the huge repo while it moved from legacy code to DDD.
+  - **BrightBee:** Full stack. Learned ticket planning, teamwork, code review, building CI/CD pipelines and feature flags. On call two days a week, handling live issues. **Incident:** a sudden traffic spike crashed the server. The owner traced it to the dashboard running too many complex queries, created database views, and that fixed it.
+  - This means Supy and BrightBee were Devsinc client work. This matches the CV's "Microservices Backend" (Supy) and "Staff Supporting Platform" (BrightBee). The "Founding Engineer" title on BrightBee is still to be confirmed against this.

@@ -15,7 +15,7 @@ export function Contact() {
 
       <div className="wrap relative">
         <p className="eyebrow">
-          <span className="eyebrow-index">05</span>
+          <span className="eyebrow-index">06</span>
           <span aria-hidden="true" className="h-px w-8 bg-line-strong" />
           Contact
         </p>

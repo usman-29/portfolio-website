@@ -1,14 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { nav, site } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { ShinyButton } from "@/components/ui/shiny-button";
 
-export function SiteHeader() {
+type SiteHeaderProps = {
+  /** On pages other than the homepage: the nav item to mark as current (e.g. "writing"). */
+  current?: (typeof nav)[number]["id"];
+};
+
+export function SiteHeader({ current }: SiteHeaderProps = {}) {
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState<string>("");
+  const [active, setActive] = useState<string>(current ?? "");
   const [open, setOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -20,8 +26,9 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Highlight the section currently in the middle of the viewport
+  // Highlight the section currently in the middle of the viewport (homepage only)
   useEffect(() => {
+    if (current) return;
     const sections = nav
       .map((item) => document.getElementById(item.id))
       .filter((el): el is HTMLElement => el !== null);
@@ -44,7 +51,7 @@ export function SiteHeader() {
       observer.disconnect();
       window.removeEventListener("scroll", onTop);
     };
-  }, []);
+  }, [current]);
 
   // Mobile menu: lock scroll, close on Escape
   useEffect(() => {
@@ -74,8 +81,8 @@ export function SiteHeader() {
       )}
     >
       <div className="wrap flex h-[var(--header-h)] items-center justify-between gap-6">
-        <a
-          href="#top"
+        <Link
+          href="/#top"
           className="group flex min-h-11 items-center gap-3 text-ink"
           aria-label={`${site.name}, back to top`}
           onClick={() => setOpen(false)}
@@ -89,7 +96,7 @@ export function SiteHeader() {
           <span className="font-heading text-[1.02rem] font-semibold tracking-tight">
             {site.shortName}
           </span>
-        </a>
+        </Link>
 
         <nav aria-label="Primary" className="hidden md:block">
           <ul className="flex items-center gap-1">
@@ -97,8 +104,8 @@ export function SiteHeader() {
               const isActive = active === item.id;
               return (
                 <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
+                  <Link
+                    href={`/#${item.id}`}
                     aria-current={isActive ? "true" : undefined}
                     className={cn(
                       "relative inline-flex min-h-11 items-center px-3.5 text-[0.95rem] transition-colors duration-200",
@@ -113,7 +120,7 @@ export function SiteHeader() {
                         isActive ? "scale-x-100" : "scale-x-0",
                       )}
                     />
-                  </a>
+                  </Link>
                 </li>
               );
             })}
@@ -149,14 +156,14 @@ export function SiteHeader() {
           <ul className="flex flex-col">
             {nav.map((item, i) => (
               <li key={item.id} className="border-b border-line">
-                <a
-                  href={`#${item.id}`}
+                <Link
+                  href={`/#${item.id}`}
                   onClick={() => setOpen(false)}
                   className="flex min-h-16 items-center justify-between font-heading text-3xl font-semibold tracking-tight text-ink"
                 >
                   {item.label}
                   <span className="font-mono text-xs font-normal text-ink-3">0{i + 1}</span>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

@@ -5,6 +5,7 @@ import { Work } from "@/components/sections/work";
 import { Experience } from "@/components/sections/experience";
 import { Stack } from "@/components/sections/stack";
 import { Background } from "@/components/sections/background";
+import { Writing } from "@/components/sections/writing";
 import { Contact } from "@/components/sections/contact";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
         <Experience />
         <Stack />
         <Background />
+        <Writing />
         <Contact />
       </main>
       <SiteFooter />

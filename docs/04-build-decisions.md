@@ -55,3 +55,12 @@ All tokens are in `app/globals.css`. The Tubes Cursor palettes and the Shiny But
 - `tsc`, `eslint`: clean. `next build`: passes. 4 static routes.
 - The design skill's copy checker: 0 FAIL. 2 WARN were kept on purpose: two stat strips (real CV and chess figures) and the numbered section labels (a navigation aid).
 - Screenshots were reviewed at 1440px and 390px.
+
+## Revision 3 (2026-11-21): Writing section
+
+- **Why:** Compared against kerlyndifo.com. Its writing/blog adds personality, and the owner supplied a career story to publish.
+- **Homepage:** New section `05 / Writing` between Background and Contact. Contact is now `06`. "Writing" was added to the nav.
+- **Post pages:** `app/writing/[slug]/page.tsx`, statically generated with `generateStaticParams` and `dynamicParams = false` (required by `output: "export"`). The content lives in `lib/writing.ts` as typed data (chapters → paragraphs), with no Markdown dependency. Reading time is computed from the word count.
+- **First post:** "My journey so far", rewritten from the owner's notes (see 02-owner-info.md → Career story). Only owner-supplied facts and CV figures are used.
+- **Header:** Nav links are now `/#id`, so they work from post pages too. On the homepage they still just scroll. A post page marks "Writing" as current.
+- **Rule:** Only add a post when there's real content. No "coming soon" placeholders.
