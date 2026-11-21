@@ -126,3 +126,7 @@ Used for the "My journey so far" post in the Writing section (`lib/writing.ts`).
   - **Supy (first):** DDD architecture, mostly backend. More than 10 microservices; owner was responsible for 3. The hardest part was understanding the huge repo while it moved from legacy code to DDD.
   - **BrightBee:** Full stack. Learned ticket planning, teamwork, code review, building CI/CD pipelines and feature flags. On call two days a week, handling live issues. **Incident:** a sudden traffic spike crashed the server. The owner traced it to the dashboard running too many complex queries, created database views, and that fixed it.
   - This means Supy and BrightBee were Devsinc client work. This matches the CV's "Microservices Backend" (Supy) and "Staff Supporting Platform" (BrightBee). The "Founding Engineer" title on BrightBee is still to be confirmed against this.
+
+## Currently reading (from owner, 2026-11-21)
+
+- **Atomic Habits** by James Clear. Shown in the Background section (`reading` in `lib/content.ts`). Update it when the book changes, because a stale "currently reading" looks abandoned.

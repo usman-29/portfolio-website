@@ -1,7 +1,7 @@
-import { Award, GraduationCap } from "lucide-react";
+import { Award, BookOpen, GraduationCap } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { ChessCard } from "@/components/chess-card";
-import { about, certifications, chess, education } from "@/lib/content";
+import { about, certifications, chess, education, reading } from "@/lib/content";
 import { getChessAtBuild } from "@/lib/chess";
 
 export async function Background() {
@@ -25,6 +25,21 @@ export async function Background() {
                 {p}
               </p>
             ))}
+
+            {reading ? (
+              <p className="mt-auto flex items-start gap-3 border-t border-line pt-5 text-sm">
+                <BookOpen className="mt-0.5 size-4 shrink-0 text-signal" aria-hidden="true" />
+                <span>
+                  <span className="block font-mono text-[0.72rem] tracking-[0.12em] text-ink-3 uppercase">
+                    Currently reading
+                  </span>
+                  <span className="mt-1 block text-ink">
+                    <cite className="not-italic">{reading.title}</cite>
+                    <span className="text-ink-3"> by {reading.author}</span>
+                  </span>
+                </span>
+              </p>
+            ) : null}
           </div>
 
           {/* Education */}

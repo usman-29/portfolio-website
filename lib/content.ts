@@ -264,6 +264,12 @@ export const about = {
   ],
 };
 
+/** Shown under the About paragraphs. Keep it current, or set to null to hide it. */
+export const reading: { title: string; author: string } | null = {
+  title: "Atomic Habits",
+  author: "James Clear",
+};
+
 export const education = {
   degree: "BS Computer Science",
   school: "Bahria University Islamabad",

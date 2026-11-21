@@ -64,3 +64,7 @@ All tokens are in `app/globals.css`. The Tubes Cursor palettes and the Shiny But
 - **First post:** "My journey so far", rewritten from the owner's notes (see 02-owner-info.md → Career story). Only owner-supplied facts and CV figures are used.
 - **Header:** Nav links are now `/#id`, so they work from post pages too. On the homepage they still just scroll. A post page marks "Writing" as current.
 - **Rule:** Only add a post when there's real content. No "coming soon" placeholders.
+
+## Revision 4 (2026-11-21): Currently reading
+
+- A small "Currently reading" line sits under the About paragraphs in Background. It's not a new card, so the 2×2 card grid stays even. The data is in `reading` in `lib/content.ts`. Set it to `null` to hide the line.
